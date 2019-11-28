@@ -17,3 +17,4 @@
           color black = #000000;
           color white = #FAFAFA;
           color cyan = #26E0D5;
+          

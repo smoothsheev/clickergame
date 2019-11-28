@@ -1,11 +1,9 @@
 int mode;
 final int INTRO = 0;
 final int SELECT = 1;
-final int PGAME = 2;
-final int RGAME = 3;
-final int SOGAME = 4;
-final int PAUSE = 5;
-final int GAMEOVER = 6;
+final int GAME = 2;
+final int PAUSE = 3;
+final int GAMEOVER = 4;
 
 
 //int gun;
@@ -22,12 +20,13 @@ import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
 Minim minim;  //toolbox of functions
-AudioPlayer bump, coin, theme, gameover;  //individual sound files
+AudioPlayer bump, coin, theme, gameover, revolverShot, revolverReload;  //individual sound files
 
+float x, y, vx, vy, hx, hy, gx;
+int score, lives, health, damage, time, ammo, mag, highscore, damageHeadshot;
 
-float x, y, vx, vy;
-int score, lives, health;
-PImage arthur;
+boolean mouseEnabled, shotgun;
+PImage arthur, redDeadTitle, crosshairs;
 PImage dead;
 PImage gun;
 PImage revolver;
@@ -35,7 +34,13 @@ PImage pistol;
 PImage repeater;
 PImage sawedoff;
 
+
+ 
+   
 void setup() {
+mouseEnabled = true;
+frameRate(60);
+  crosshairs = loadImage("crosshairs.png");
   arthur = loadImage("arthur.png");
   dead = loadImage("dead.jpg");
   gun = loadImage("gun.png");
@@ -43,10 +48,14 @@ void setup() {
   pistol = loadImage("pistol.png");
   sawedoff = loadImage("sawedoff.png");
   repeater = loadImage("repeater.png");
+  redDeadTitle = loadImage("Red_Dead_Redemption_2_Logo.png");
+
   x = 400;
   y = 400;
-  vx = random(-1,1);
-  vy = random(-1,1);
+  vx = random(-2|-4);
+  vy = random(-2|-4);
+  hx = 389;
+  hy = 371;
 
   score = 0;
   lives = 3;
@@ -61,17 +70,18 @@ void setup() {
   coin = minim.loadFile("coin.wav");
   bump = minim.loadFile("bump.wav");
   gameover = minim.loadFile("gameover.wav");
-  theme = minim.loadFile("mario bros theme.mp3");
+  theme = minim.loadFile("Main Theme Red Dead Redemption 2 OST.mp3");
+  revolverShot = minim.loadFile("revolver1.wav");
+  revolverReload = minim.loadFile("Rreload.wav");
 }
+ 
 
 void draw() {
   if (mode == INTRO) {
     intro();
     lives = 3;
-  } else if (mode == PGAME) {
-    pgame();
-  } else if (mode == RGAME) {
-    rgame();
+  } else if (mode == GAME) {
+    game();
   }
     else if (mode == SELECT) {
       select();
@@ -84,3 +94,4 @@ void draw() {
   }
   println(mouseX, mouseY);
 }
+  

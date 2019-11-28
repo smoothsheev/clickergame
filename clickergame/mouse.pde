@@ -4,10 +4,8 @@ void mouseReleased() {
     introClicks();
   } else if (mode == SELECT) {
     selectClicks();
-  } else if (mode == PGAME) {
-    pgameClicks();
-  } else if (mode == RGAME) {
-    rgameClicks();
+  } else if (mode == GAME) {
+    gameClicks();
   } else if (mode == PAUSE) {
    pauseClicks();
   } else if (mode == GAMEOVER) {
